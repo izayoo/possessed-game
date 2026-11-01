@@ -1,0 +1,180 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: radial-gradient(circle at 50% 20%, #1b2838 0%, #0a0f18 70%);
+  color: #eef3f8;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#snowOverlay {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    radial-gradient(2px 2px at 10% 10%, #fff, transparent),
+    radial-gradient(2px 2px at 30% 40%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 20%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 45% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 90% 15%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 15% 70%, #fff, transparent);
+  background-size: 100% 100%;
+  animation: snowfall 9s linear infinite;
+  opacity: 0.5;
+}
+@keyframes snowfall {
+  from { background-position: 0 -100px; }
+  to { background-position: 40px 800px; }
+}
+
+.screen {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.hidden { display: none !important; }
+
+.panel {
+  background: rgba(20, 28, 40, 0.9);
+  border: 1px solid #3a4a5c;
+  border-radius: 14px;
+  padding: 28px 32px;
+  width: 360px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  text-align: center;
+}
+.panel.wide { width: 520px; }
+
+h1 { margin: 0 0 4px; font-size: 32px; }
+h2 { margin: 0 0 4px; }
+.subtitle { color: #9ab; font-size: 14px; margin-bottom: 16px; }
+.code { color: #ffd166; letter-spacing: 2px; }
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: 1px solid #3a4a5c;
+  background: #0f1620;
+  color: #eef3f8;
+  font-size: 14px;
+}
+.row { display: flex; gap: 8px; }
+.row input { flex: 1; }
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: #2b3a4a;
+  color: #eef3f8;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: #3a4d63; }
+.btn.primary { background: #c0392b; }
+.btn.primary:hover { background: #e74c3c; }
+.row .btn { width: auto; flex: 0 0 auto; padding: 10px 16px; }
+
+.error { color: #ff6b6b; min-height: 18px; font-size: 13px; }
+.hint { color: #8fa; font-size: 13px; margin-top: 10px; }
+
+.player-list { list-style: none; padding: 0; margin: 10px 0; text-align: left; max-height: 240px; overflow-y: auto; }
+.player-list li { padding: 6px 10px; border-radius: 6px; background: #0f1620; margin: 4px 0; display: flex; justify-content: space-between; }
+.player-list li .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+
+/* HUD */
+#hud {
+  position: fixed; top: 10px; left: 10px; right: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 5; font-size: 14px;
+  pointer-events: none;
+}
+#hud > div {
+  background: rgba(10,15,20,0.75); padding: 6px 12px; border-radius: 8px;
+  pointer-events: auto;
+}
+#roleBadge.guest { color: #6fcf97; }
+#roleBadge.possessed { color: #ff6b6b; font-weight: bold; }
+
+#gameCanvas {
+  display: block;
+  margin: 0 auto;
+  background: #10151c;
+  border: 3px solid #2b3a4a;
+  border-radius: 6px;
+  cursor: default;
+  image-rendering: pixelated;
+}
+
+#screen-game { flex-direction: column; }
+
+#actionPrompt {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,15,20,0.9); padding: 10px 18px; border-radius: 10px;
+  font-size: 14px; z-index: 6; border: 1px solid #ffd166;
+}
+
+.meeting-btn {
+  position: fixed; bottom: 16px; right: 16px; width: auto; z-index: 5;
+  background: #8e2c2c;
+}
+.meeting-btn:hover { background: #b23b3b; }
+
+#chatBox {
+  position: fixed; bottom: 16px; left: 16px; width: 300px; z-index: 5;
+}
+#chatLog {
+  max-height: 110px; overflow-y: auto; font-size: 12px;
+  background: rgba(10,15,20,0.7); border-radius: 8px 8px 0 0; padding: 6px 10px;
+}
+#chatLog div { margin: 2px 0; }
+#chatInput, #meetingChatInput {
+  border-radius: 0 0 8px 8px; margin: 0;
+}
+
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+.modalInner {
+  background: #16202b; border: 1px solid #3a4a5c; border-radius: 12px;
+  padding: 24px; width: 360px; text-align: center;
+}
+#taskModalBody button {
+  margin: 6px; padding: 14px 20px; font-size: 16px; border-radius: 8px;
+  border: none; background: #2b3a4a; color: #eef3f8; cursor: pointer;
+}
+#taskModalBody button:hover { background: #3a4d63; }
+.progressBar { height: 14px; background: #0f1620; border-radius: 7px; overflow: hidden; margin: 10px 0; }
+.progressBar > div { height: 100%; background: #6fcf97; width: 0%; transition: width 0.1s; }
+
+.vote-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0;
+}
+.vote-grid button {
+  padding: 10px; border-radius: 8px; border: 1px solid #3a4a5c;
+  background: #0f1620; color: #eef3f8; cursor: pointer; font-size: 13px;
+}
+.vote-grid button.voted { border-color: #ffd166; background: #2b2410; }
+.vote-grid button:disabled { opacity: 0.5; cursor: not-allowed; }
+.chat-log-meeting { max-height: 140px; overflow-y: auto; text-align: left; font-size: 13px; background: #0f1620; border-radius: 8px; padding: 8px; margin-bottom: 6px; }
+
+#taskListPanel {
+  position: fixed; top: 54px; right: 10px; z-index: 5;
+  background: rgba(10,15,20,0.75); border-radius: 8px; padding: 8px 12px;
+  font-size: 12px; max-width: 180px;
+}
+#taskListPanel div { margin: 3px 0; }
+#taskListPanel .done { color: #6fcf97; text-decoration: line-through; }
