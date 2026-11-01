@@ -1,0 +1,17 @@
+{
+    "name": "possessed-game",
+    "version": "1.0.0",
+    "description": "Browser-based social deduction game: find the possessed player hiding among the group in a snowbound mountain cabin.",
+    "main": "server.js",
+    "scripts": {
+          "start": "node server.js",
+          "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+          "express": "^5.3.0",
+          "socket.io": "^4.8.4"
+    }
+}
