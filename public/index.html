@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Possessed — Mountain Cabin</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="snowOverlay"></div>
+
+<!-- HOME SCREEN -->
+<div id="screen-home" class="screen">
+  <div class="panel">
+    <h1>❄️ POSSESSED</h1>
+    <p class="subtitle">One of you isn't who they seem.</p>
+    <input id="nameInput" placeholder="Your name" maxlength="16" />
+    <button id="btnCreate" class="btn primary">Create Room</button>
+    <div class="row">
+      <input id="codeInput" placeholder="ROOM CODE" maxlength="5" style="text-transform:uppercase" />
+      <button id="btnJoin" class="btn">Join</button>
+    </div>
+    <p id="homeError" class="error"></p>
+  </div>
+</div>
+
+<!-- LOBBY SCREEN -->
+<div id="screen-lobby" class="screen hidden">
+  <div class="panel">
+    <h2>Lobby <span id="roomCodeLabel" class="code"></span></h2>
+    <p class="subtitle">Share this code with friends. Need 4+ players.</p>
+    <ul id="playerList" class="player-list"></ul>
+    <button id="btnStart" class="btn primary hidden">Start Game</button>
+    <p id="lobbyHint" class="hint">Waiting for the host to start...</p>
+  </div>
+</div>
+
+<!-- ROLE REVEAL -->
+<div id="screen-role" class="screen hidden">
+  <div class="panel" id="roleCard">
+    <h2 id="roleTitle"></h2>
+    <p id="roleDesc" class="subtitle"></p>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="screen-game" class="screen hidden">
+  <div id="hud">
+    <div id="taskProgress">Tasks: <span id="taskCount">0/0</span></div>
+    <div id="killCooldown" class="hidden">Kill ready in <span id="cooldownVal">0</span>s</div>
+    <div id="roleBadge"></div>
+  </div>
+  <canvas id="gameCanvas" width="1000" height="700"></canvas>
+  <div id="actionPrompt" class="hidden"></div>
+  <div id="taskListPanel"></div>
+  <button id="btnMeeting" class="btn meeting-btn">🔔 Call Meeting</button>
+  <div id="chatBox">
+    <div id="chatLog"></div>
+    <input id="chatInput" placeholder="Press Enter to chat..." maxlength="200" />
+  </div>
+</div>
+
+<!-- TASK MINIGAME MODAL -->
+<div id="taskModal" class="modal hidden">
+  <div class="modalInner">
+    <h3 id="taskModalTitle"></h3>
+    <div id="taskModalBody"></div>
+  </div>
+</div>
+
+<!-- MEETING SCREEN -->
+<div id="screen-meeting" class="screen hidden">
+  <div class="panel wide">
+    <h2 id="meetingTitle">Emergency Meeting</h2>
+    <p id="meetingTimer" class="subtitle"></p>
+    <div id="meetingResult" class="hint"></div>
+    <div id="voteGrid" class="vote-grid"></div>
+    <div id="meetingChatLog" class="chat-log-meeting"></div>
+    <input id="meetingChatInput" placeholder="Press Enter to discuss..." maxlength="200" />
+  </div>
+</div>
+
+<!-- GAME OVER -->
+<div id="screen-over" class="screen hidden">
+  <div class="panel wide">
+    <h1 id="overTitle"></h1>
+    <ul id="roleReveal" class="player-list"></ul>
+    <button id="btnPlayAgain" class="btn primary hidden">Play Again</button>
+    <p id="overHint" class="hint">Waiting for host...</p>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
